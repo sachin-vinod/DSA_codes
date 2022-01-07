@@ -1,0 +1,35 @@
+ void removeLoop(Node* head)
+    {
+        // code here
+        // just remove the loop without losing any nodes
+        //first dectect loop if not present return
+        Node* slow=head;
+        Node* fast=head;
+        int flag=0;
+        while(fast->next && fast->next->next){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(slow==fast){
+                flag=1;
+                break;
+            }
+        }
+        if(flag==0){
+            return;
+        }
+        
+        if(slow==head && fast==head){      //special case when loop is connected to head
+            while(fast->next!=head){
+                fast=fast->next;
+            }
+            fast->next=NULL;
+        }
+        else{
+            slow=head;
+            while(slow->next!=fast->next){
+                slow=slow->next;
+                fast=fast->next;
+            }
+            fast->next=NULL;
+        }
+    }
